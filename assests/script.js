@@ -23,18 +23,13 @@
 //
 // TODO: Add code to display the current date in the header of the page.
 
-// function displayTime() {
-//   var currentTime = dayjs().format('dddd MMMM, MM')
-//   $('currentDay').text(currentTime);
-//   console.log(currentTime);
-// }
 
 // Display Current Date
 var currentTime = dayjs().format('dddd MMMM, MM')
 $("#currentDay").text(currentTime);
 console.log(currentTime);
 
-$document.ready(function () {
+$(document).ready(function () {
     // click event listener 
     $('.saveButton').on("click", function () {
         var text = $(this).sibling(".description").val();
@@ -44,7 +39,6 @@ $document.ready(function () {
     })
 
     // Hours in local storage 
-    $("#hour8 .description").val(localStorage.getItem("hour8"));
     $("#hour9 .description").val(localStorage.getItem("hour9"));
     $("#hour10 .description").val(localStorage.getItem("hour10"));
     $("#hour11 .description").val(localStorage.getItem("hour11"));
@@ -58,13 +52,30 @@ $document.ready(function () {
 
     function theSchedule() {
         // time it is right now
-        var exactTime = moment().hour();
+        var exactTime = dayjs().hour();
+        console.log(exactTime)
 
         $(".time-block").each(function () {
-            // which times get removed
+            // every hour to compare to what time it is now
             var notTime = parseInt($(this).attr("id").split("hour")[1]);
-            // seeing what time it is
-            if 
+            console.log(notTime);
+
+            if (notTime < exactTime) {
+                $(this).removeClass("future");
+                $(this).removeClass("present")
+                $(this).addClass("past");
+            }
+
+            else if (notTime < exactTime) {
+                $(this).removeClass("future");
+                $(this).removeClass("past")
+                $(this).addClass("present");
+            }
+            else {
+                $(this).removeClass("present");
+                $(this).removeClass("past")
+                $(this).addClass("future");
+            }
         });
 
     };
