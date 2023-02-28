@@ -1,4 +1,5 @@
-var currentTime = dayjs().format('dddd MMMM, MM')
+
+var currentTime = dayjs().format('dddd MMMM, DD')
 $("#currentDay").text(currentTime);
 console.log(currentTime);
 
@@ -9,6 +10,7 @@ $(document).ready(function () {
         var time = $(this).parent().attr("id");
         var text = $(this).siblings(".description").val();
         // Save text in local storage
+        // key, value
         localStorage.setItem(time, text);
     })
 
@@ -21,9 +23,6 @@ $(document).ready(function () {
     $("#hour14 .description").val(localStorage.getItem("hour14"));
     $("#hour15 .description").val(localStorage.getItem("hour15"));
     $("#hour16 .description").val(localStorage.getItem("hour16"));
-    $("#hour17 .description").val(localStorage.getItem("hour17"));
-    $("#hour18 .description").val(localStorage.getItem("hour18"));
-
 
     function theSchedule() {
         // time it is right now
@@ -35,18 +34,20 @@ $(document).ready(function () {
             var notTime = parseInt($(this).attr("id").split("hour")[1]);
             console.log(notTime);
 
+            // past color will be grey
             if (notTime < exactTime) {
                 $(this).removeClass("future");
                 $(this).removeClass("present")
                 $(this).addClass("past");
             }
-
-            else if (notTime = exactTime) {
+            // present color will be red
+            else if (notTime === exactTime) {
                 $(this).removeClass("future");
                 $(this).removeClass("past")
                 $(this).addClass("present");
             }
             else {
+                // future color will br green
                 $(this).removeClass("present");
                 $(this).removeClass("past")
                 $(this).addClass("future");
